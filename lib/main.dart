@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/providers/cart.dart';
 //import provider
 import 'package:provider/provider.dart';
 
@@ -11,9 +12,17 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // method 1
-    return ChangeNotifierProvider(
-      create: (context) => Products(),
+    // Wrap providers with MultiProvider
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Products(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Cart(),
+        ),
+      ],
+
       // method 2 - if value doesnt depend on a context
       // return ChangeNotifierProvider.value(value: Products());
       child: MaterialApp(
