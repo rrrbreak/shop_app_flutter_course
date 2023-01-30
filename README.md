@@ -1,1 +1,1 @@
-# shop_app_flutter_course
+# shop-app-flutter-course
