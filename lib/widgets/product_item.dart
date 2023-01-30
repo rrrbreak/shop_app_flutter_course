@@ -4,6 +4,8 @@ import 'package:flutter_complete_guide/providers/product.dart';
 import 'package:flutter_complete_guide/screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/cart.dart';
+
 class ProductItem extends StatelessWidget {
 //   const ProductItem({Key key, this.id, this.title, this.imageUrl})
 //       : super(key: key);
@@ -15,6 +17,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
     // clipping a rectangle to add rounded corners
     return ClipRRect(
       borderRadius: BorderRadius.circular(9),
@@ -51,7 +54,9 @@ class ProductItem extends StatelessWidget {
           ),
           trailing: IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: () {},
+            onPressed: () {
+              cart.addItem(product.id, product.price, product.title);
+            },
             color: Theme.of(context).colorScheme.secondary,
           ),
         ),
