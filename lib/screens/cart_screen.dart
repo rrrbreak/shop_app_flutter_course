@@ -4,7 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_complete_guide/providers/cart.dart' show Cart;
 import 'package:provider/provider.dart';
-import 'cart_item.dart';
+import './cart_item.dart';
+import '../providers/orders.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -43,7 +44,13 @@ class CartScreen extends StatelessWidget {
                     width: 10,
                   ),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clearCart();
+                    },
                     child: Text(
                       'Order',
                       style: TextStyle(color: Colors.black87),
