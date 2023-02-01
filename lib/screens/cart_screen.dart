@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_complete_guide/providers/cart.dart';
+import 'package:flutter_complete_guide/providers/cart.dart' show Cart;
 import 'package:provider/provider.dart';
+import 'cart_item.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -34,12 +35,12 @@ class CartScreen extends StatelessWidget {
                   // total amount of cart
                   Chip(
                     label: Text(
-                      '\$${cart.totalAmount}',
+                      '\$${cart.totalAmount.toStringAsFixed(2)}',
                     ),
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
                   SizedBox(
-                    width: 5,
+                    width: 10,
                   ),
                   OutlinedButton(
                     onPressed: () {},
@@ -52,6 +53,24 @@ class CartScreen extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return CartItem(
+                  id: cart.items.values.toList()[index].id,
+                  // adding it to remove items
+                  productId: cart.items.keys.toList()[index],
+                  price: cart.items.values.toList()[index].price,
+                  quantity: cart.items.values.toList()[index].quantity,
+                  title: cart.items.values.toList()[index].title,
+                );
+              },
+              itemCount: cart.items.length,
+            ),
+          )
         ],
       ),
     );
