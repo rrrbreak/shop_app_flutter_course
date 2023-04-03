@@ -58,3 +58,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// final url = Uri.https('flutter-update.firebaseio.com', '/products.json')
+// http.post(url, ...)
